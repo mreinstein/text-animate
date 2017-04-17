@@ -2,7 +2,7 @@
 
 beautiful, animated, HTML typographic UI effects
 
-![alt text](example.gif "example of usage from https://reinstein.me")
+![alt text](example.gif "example of usage from my personal website https://reinstein.me")
 
 
 ## simple example
@@ -27,4 +27,4 @@ anim.add(h)
 anim.start()
 ```
 
-You can also find a slightly more complex usages in `example/` and on https://reinstein.me
+More advanced usage examples available in `example/` and on my personal site: https://reinstein.me
