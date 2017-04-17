@@ -2,8 +2,10 @@
 
 beautiful, animated, HTML typographic UI effects
 
-![alt text](example.gif "example of usage on my personal website")
+![alt text](example.gif "example of usage from https://reinstein.me")
 
+
+## simple example
 
 ```javascript
 'use strict'
@@ -24,3 +26,5 @@ anim.add(h)
 
 anim.start()
 ```
+
+You can also find a slightly more complex usages in `example/` and on https://reinstein.me
