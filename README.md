@@ -2,6 +2,8 @@
 
 beautiful, animated, HTML typographic UI effects
 
+![alt text](example.gif "example of usage on my personal website")
+
 
 ```javascript
 'use strict'
