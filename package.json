@@ -29,7 +29,7 @@
     "clamp": "^1.0.1",
     "eases": "^1.0.8",
     "raf": "^3.3.0",
-    "seedrandom": "davidbau/seedrandom#cac59aac49c2a8ae7cd48d33e1926425f83e61ec"
+    "seedrandom": "^2.4.3"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.22.0",
