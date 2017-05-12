@@ -4,7 +4,7 @@
   "description": "beautiful, animated, HTML typographic UI effects",
   "main": "index.js",
   "scripts": {
-    "build": "browserify example/index.js -t [ babelify --presets [ es2015 ] ] | uglifyjs --screw-ie8 --compress > example/bundle.js",
+    "build": "browserify example/index.js | uglifyjs --compress --mangle > example/bundle.js",
     "watch": "watchify example/index.js -v -o example/bundle.js --verbose"
   },
   "repository": {
@@ -32,21 +32,7 @@
     "seedrandom": "^2.4.3"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.22.0",
-    "babelify": "^7.3.0",
-    "uglify-js": "^2.7.5",
+    "uglify-es": "^3.0.4",
     "watchify": "^3.9.0"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ]
-    ]
   }
 }
