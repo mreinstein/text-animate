@@ -2,7 +2,7 @@
   "name": "text-animate",
   "version": "0.1.4",
   "description": "beautiful, animated, HTML typographic UI effects",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "browserify example/index.js | uglifyjs --compress --mangle > example/bundle.js",
     "watch": "watchify example/index.js -v -o example/bundle.js --verbose"
