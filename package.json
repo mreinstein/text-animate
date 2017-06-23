@@ -32,7 +32,7 @@
     "seedrandom": "^2.4.3"
   },
   "devDependencies": {
-    "uglify-es": "^3.0.4",
+    "uglify-es": "^3.0.19",
     "watchify": "^3.9.0"
   }
 }
