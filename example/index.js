@@ -1,8 +1,8 @@
 'use strict'
 
-const animateHeader = require('../lib/animate-header')
-const animateText   = require('../lib/animate-text')
-const controller    = require('../lib/controller')
+const animateHeader = require('../animate-header')
+const animateText   = require('../animate-text')
+const controller    = require('../controller')
 
 
 const anim = controller()

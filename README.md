@@ -10,8 +10,8 @@ beautiful, animated, HTML typographic UI effects
 ```javascript
 'use strict'
 
-const animateHeader = require('text-animate').header
-const controller    = require('text-animate').controller
+const animateHeader = require('text-animate/header')
+const controller    = require('text-animate/controller')
 
 const anim = controller()
 const randSeed = Math.random()
