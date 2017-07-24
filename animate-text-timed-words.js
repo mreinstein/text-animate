@@ -19,7 +19,7 @@ module.exports = function animateTextTimedWords(el, options={}) {
 
   const spans = []
 
-  let step = function(dt) {
+  const step = function(dt) {
     if(allDone) return
 
     allDone = audio.currentTime > endTime
@@ -51,14 +51,18 @@ module.exports = function animateTextTimedWords(el, options={}) {
     }
   }
 
-  let _setup = function(text) {
+  const _setup = function(text) {
     el.innerHTML = ''
     const words = text.trim().split(' ')
 
     const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
 
     for (let i=0; i < words.length; i++) {
-      let span = document.createElement('span')
+      if(words[i].trim().length === 0) {
+        continue;
+      }
+
+      const span = document.createElement('span')
       span.innerText = words[i] + ' '
       span.style.color = pageBgColor
       spans.push(span)
