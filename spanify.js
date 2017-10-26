@@ -7,5 +7,6 @@ module.exports = function spanify(el) {
   for(let i=0; i < content.length; i++) {
     newContent += ('<span>' + content[i] + '</span>')
   }
+
   el.innerHTML = newContent
 }

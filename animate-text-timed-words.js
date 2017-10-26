@@ -53,7 +53,7 @@ module.exports = function animateTextTimedWords(el, options={}) {
 
   const _setup = function(text) {
     el.innerHTML = ''
-    const words = text.trim().split(' ')
+    const words = text.trim().split(/[ \n\t]+/)
 
     const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
 
