@@ -19,12 +19,15 @@ module.exports = function animateTextTimedWords(el, options={}) {
 
   const spans = []
 
+
+  // @param int dt time elapsed in milliseconds
   const step = function(dt) {
-    if(allDone) return
+    if(allDone)
+      return
 
     allDone = audio.currentTime > endTime
 
-    // audio.duration is expressed in seconds
+    // audio.duration, audio.currentTime are expressed in seconds
     const currentTime = Math.round(audio.currentTime * 1000) // convert seconds to ms
 
     for(let i=0; i < spans.length; i++) {
@@ -36,9 +39,8 @@ module.exports = function animateTextTimedWords(el, options={}) {
 
       const startTime = timings[i].time
 
-      if(currentTime < startTime) {
+      if(currentTime < startTime)
         return
-      }
 
       const duration = (i < timings.length-1) ? (timings[i+1].time - timings[i].time) : 400
       const endTime = startTime + duration
@@ -51,6 +53,7 @@ module.exports = function animateTextTimedWords(el, options={}) {
     }
   }
 
+
   const _setup = function(text) {
     el.innerHTML = ''
     const words = text.trim().split(/[ \n\t]+/)
@@ -58,9 +61,8 @@ module.exports = function animateTextTimedWords(el, options={}) {
     const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
 
     for (let i=0; i < words.length; i++) {
-      if(words[i].trim().length === 0) {
-        continue;
-      }
+      if(words[i].trim().length === 0)
+        continue
 
       const span = document.createElement('span')
       span.innerText = words[i] + ' '
@@ -69,6 +71,7 @@ module.exports = function animateTextTimedWords(el, options={}) {
       el.appendChild(span)
     }
   }
+
 
   _setup(text)
 

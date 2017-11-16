@@ -8,31 +8,35 @@ module.exports = function animationController() {
 
   let lastTime = Date.now()
 
-  let add = function(item) {
+
+  const add = function(item) {
     items.push(item)
   }
 
-  let remove = function(item) {
+
+  const remove = function(item) {
     for(let i=0; i < items.length; i++) {
-      if (items[i] === item) {
+      if (items[i] === item)
         return items.splice(i, 1)
-      }
     }
   }
 
-  let start = function() {
+
+  const start = function() {
     raf(_step)
   }
 
-  function _step() {
+
+  const _step = function() {
     const now = Date.now()
     const dt = now - lastTime
     lastTime = now
-    for (let i=0; i < items.length; i++) {
+    for (let i=0; i < items.length; i++)
       items[i].step(dt)
-    }
+
     raf(_step)
   }
+
 
   return { add, remove, start }
 }

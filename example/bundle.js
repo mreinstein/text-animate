@@ -1,7 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict'
 
-const scale = require('./scale-alpha')
+const scaleAlpha = require('./scale-alpha')
 
 
 module.exports = function animateHeader(el, opts={}) {
@@ -15,22 +15,19 @@ module.exports = function animateHeader(el, opts={}) {
   let accum = 0  // milliseconds in the accumulator
   let finished = false
 
-  function step(dt) {
+
+  // @param int dt time elapsed in milliseconds
+  const step = function(dt) {
     accum += dt
-    if (finished || accum < options.delay){
+    if (finished || accum < options.delay)
       return
-    }
 
     const actual = accum - options.delay
     finished = actual >= options.duration
 
-    if(finished) {
-      span.style.backgroundColor = ''
-    } else {
-      const amount = 1 - (actual / options.duration)
-      span.style.backgroundColor = scale(options.color, amount)
-    }
+    span.style.backgroundColor = finished ? '' : scaleAlpha(options.color, 1 - actual/options.duration)
   }
+
 
   return { step }
 }
@@ -49,14 +46,16 @@ module.exports = function animate1(el, opts={}) {
   let spans
   let index = 0  // index of currently etched character
   let accum = 0  // ms in the accumulator
-  let delay = (options.delay ? options.delay : 0)
+  const delay = (options.delay ? options.delay : 0)
 
   const rng = seedrandom(options.randSeed)
-  
+
   let etchWidth = (rng() > 0.5) ? 1 : 2
 
-  function etch(i) {
-    if (i >= spans.length) return
+
+  const _etch = function(i) {
+    if (i >= spans.length)
+      return
 
     if (spans[i].innerText === ' ') {
       spans[i].style.backgroundColor = ''
@@ -66,18 +65,22 @@ module.exports = function animate1(el, opts={}) {
     spans[i].style.backgroundColor = options.etchBGColor
   }
 
-  function done(i) {
-    if (i >= spans.length) return
+
+  const _done = function(i) {
+    if (i >= spans.length)
+      return
     spans[i].style.color = 'initial'
     spans[i].style.backgroundColor = options.targetBGColor
   }
 
-  let setText = function(text) {
+
+  const setText = function(text) {
     _setup(text)
     accum = delay
   }
 
-  let _setup = function(text) {
+
+  const _setup = function(text) {
     el.innerHTML = text.trim()
     spanify(el)
 
@@ -91,34 +94,33 @@ module.exports = function animate1(el, opts={}) {
   }
 
 
-  let step = function(dt) {
+  // @param int dt time elapsed in milliseconds
+  const step = function(dt) {
     accum += dt
 
-    if (accum < delay) return
+    if (accum < delay)
+      return
 
     let actual = accum - delay
 
     while(actual >= options.etchSpeed) {
-      done(index)
+      _done(index)
       if (etchWidth > 1)
-        done(index + 1)
+        _done(index + 1)
       index += etchWidth
 
-      if (index >= spans.length) {
+      if (index >= spans.length)
         return
-      }
 
       etchWidth = (rng() > 0.5) ? 1 : 2
-      etch(index)  // set current index to etching
-      if (etchWidth > 1) etch(index+1)
+      _etch(index)  // set current index to etching
+      if (etchWidth > 1)
+        _etch(index+1)
 
       actual -= options.etchSpeed
       accum -= options.etchSpeed
     }
   }
-
-  // TODO: fire an event when completed
-  // TODO: reset animation method
 
   _setup(el.innerText)
 
@@ -136,31 +138,35 @@ module.exports = function animationController() {
 
   let lastTime = Date.now()
 
-  let add = function(item) {
+
+  const add = function(item) {
     items.push(item)
   }
 
-  let remove = function(item) {
+
+  const remove = function(item) {
     for(let i=0; i < items.length; i++) {
-      if (items[i] === item) {
+      if (items[i] === item)
         return items.splice(i, 1)
-      }
     }
   }
 
-  let start = function() {
+
+  const start = function() {
     raf(_step)
   }
 
-  function _step() {
+
+  const _step = function() {
     const now = Date.now()
     const dt = now - lastTime
     lastTime = now
-    for (let i=0; i < items.length; i++) {
+    for (let i=0; i < items.length; i++)
       items[i].step(dt)
-    }
+
     raf(_step)
   }
+
 
   return { add, remove, start }
 }
@@ -507,9 +513,12 @@ module.exports = function(fn) {
 module.exports.cancel = function() {
   caf.apply(root, arguments)
 }
-module.exports.polyfill = function() {
-  root.requestAnimationFrame = raf
-  root.cancelAnimationFrame = caf
+module.exports.polyfill = function(object) {
+  if (!object) {
+    object = root;
+  }
+  object.requestAnimationFrame = raf
+  object.cancelAnimationFrame = caf
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
@@ -1480,6 +1489,7 @@ module.exports = function spanify(el) {
   for(let i=0; i < content.length; i++) {
     newContent += ('<span>' + content[i] + '</span>')
   }
+
   el.innerHTML = newContent
 }
 

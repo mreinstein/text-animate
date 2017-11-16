@@ -24,67 +24,78 @@ module.exports = function animateTextLines(el, opts={}) {
   let total = 0
   let index = 0  // index of currently etched line
 
-  function etch(i) {
-    if (i >= spans.length) return
 
-    if (spans[i].innerText === ' ') {
-      spans[i].style.backgroundColor = ''
+  function etch(i) {
+    if (i >= spans.length)
       return
-    }
+
+    if (spans[i].innerText === ' ')
+      return spans[i].style.backgroundColor = ''
+
     spans[i].style.color = options.etchFGColor
     spans[i].style.backgroundColor = options.etchBGColor
   }
 
+
   function done(i) {
-    if (i >= spans.length) return
+    if (i >= spans.length)
+      return
+
     spans[i].style.color = options.targetFGColor
     spans[i].style.backgroundColor = options.targetBGColor
-    if(options.targetFontWeight) {spans[i].style.fontWeight = options.targetFontWeight}
-    if(options.targetFontStyle) {spans[i].style.fontStyle = options.targetFontStyle}
+
+    if(options.targetFontWeight)
+      spans[i].style.fontWeight = options.targetFontWeight
+
+    if(options.targetFontStyle)
+      spans[i].style.fontStyle = options.targetFontStyle
   }
 
-  let setText = function(text) {
-    _setup(text) 
+
+  const setText = function(text) {
+    _setup(text)
     total = accum = 0
     index = 0
   }
 
-  let step = function(dt) {
 
-    if (index >= spans.length) {
+  // @param int dt time elapsed in milliseconds
+  const step = function(dt) {
+
+    if (index >= spans.length)
       return
-    }
 
     total += dt
-    if (total < options.delay) return
+    if (total < options.delay)
+      return
 
     accum += dt
-    
+
 
     while(accum >= options.etchSpeed) {
       done(index)
       index++
 
-      if (index >= spans.length) {
+      if (index >= spans.length)
         return
-      }
 
       etch(index)
       accum -= options.etchSpeed
     }
   }
 
-  let _setup = function(text) {
+
+  const _setup = function(text) {
     const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
 
     el.innerHTML = text.trim()
     spanifyByNewlines(el)
     spans = el.querySelectorAll('span')
 
-    for (let i=0; i < spans.length; i++) {
+    for (let i=0; i < spans.length; i++)
       spans[i].style.color = pageBgColor
-    }
   }
+
 
   _setup(el.innerText)
 

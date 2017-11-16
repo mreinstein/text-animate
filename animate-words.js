@@ -11,9 +11,9 @@ module.exports = function animateWords(el, opts={}) {
   const spans = []
   let accum = 0  // ms in the accumulator
 
-  let appendText = function(text) {
-    const words = text.trim().split(' ')
 
+  const appendText = function(text) {
+    const words = text.trim().split(' ')
     const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
 
     for (let i=0; i < words.length; i++) {
@@ -24,21 +24,23 @@ module.exports = function animateWords(el, opts={}) {
     }
   }
 
-  let step = function(dt) {
+
+  // @param int dt time elapsed in milliseconds
+  const step = function(dt) {
     accum += dt
 
     const amount = 1 - (accum / options.duration)
-    for(let i=0; i < spans.length; i++) {
+    for(let i=0; i < spans.length; i++)
       spans[i].style.backgroundColor = scaleAlpha(options.color, amount)
-    }
   }
 
-  let _setup = function() {
-    const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
 
+  const _setup = function() {
+    const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
     accum = 0
     el.innerHTML = ''
   }
+
 
   _setup()
 

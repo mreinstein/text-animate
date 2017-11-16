@@ -1,6 +1,6 @@
 'use strict'
 
-const scale = require('./scale-alpha')
+const scaleAlpha = require('./scale-alpha')
 
 
 module.exports = function animateHeader(el, opts={}) {
@@ -14,22 +14,19 @@ module.exports = function animateHeader(el, opts={}) {
   let accum = 0  // milliseconds in the accumulator
   let finished = false
 
-  function step(dt) {
+
+  // @param int dt time elapsed in milliseconds
+  const step = function(dt) {
     accum += dt
-    if (finished || accum < options.delay){
+    if (finished || accum < options.delay)
       return
-    }
 
     const actual = accum - options.delay
     finished = actual >= options.duration
 
-    if(finished) {
-      span.style.backgroundColor = ''
-    } else {
-      const amount = 1 - (actual / options.duration)
-      span.style.backgroundColor = scale(options.color, amount)
-    }
+    span.style.backgroundColor = finished ? '' : scaleAlpha(options.color, 1 - actual/options.duration)
   }
+
 
   return { step }
 }
