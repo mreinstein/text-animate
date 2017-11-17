@@ -30,6 +30,8 @@ function splitByTimings(text, timings) {
 module.exports = function animateTextTimedWords(el, options={}) {
   const { audio, text, color, timings } = options
 
+  const src = audio.src
+
   let allDone = false
 
   // convert ms to seconds
@@ -40,10 +42,15 @@ module.exports = function animateTextTimedWords(el, options={}) {
 
   // @param int dt time elapsed in milliseconds
   const step = function(dt) {
+
     if(allDone)
       return
 
-    allDone = audio.currentTime > endTime
+    // if the audio src changed, the audio is no longer playing. assume the animation is done
+    // this can happen in scenarios where the audio element is shared among multiple animated
+    // elements.
+    if(src != audio.src)
+      _markAllVisible()
 
     // audio duration, currentTime are expressed in seconds
     const currentTime = Math.round(audio.currentTime * 1000) // convert seconds to ms
@@ -62,6 +69,17 @@ module.exports = function animateTextTimedWords(el, options={}) {
 
       spans[i].style.color = ''
       spans[i].style.backgroundColor = scaleAlpha(options.color, 1 - progress)
+
+      if (i === spans.length-1 && progress > 0.99)
+        _markAllVisible()
+    }
+  }
+
+  const _markAllVisible = function() {
+    allDone = true
+    for(let i=0; i < spans.length; i++) {
+      spans[i].style.color = ''
+      spans[i].style.backgroundColor = ''
     }
   }
 
@@ -84,7 +102,6 @@ module.exports = function animateTextTimedWords(el, options={}) {
       el.appendChild(span)
     }
   }
-
 
   _setup(text)
 
