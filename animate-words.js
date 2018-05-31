@@ -2,7 +2,6 @@
 
 const scaleAlpha = require('./scale-alpha')
 const seedrandom = require('seedrandom')
-const spanify    = require('./spanify')
 
 
 module.exports = function animateWords(el, opts={}) {

@@ -35,8 +35,7 @@ const p3 = {
 }
 
 const lis = document.querySelectorAll('li,p')
-for(let i=0; i < lis.length; i++) {
+for(let i=0; i < lis.length; i++)
   anim.add(animateText(lis[i], p3))
-}
 
 anim.start()

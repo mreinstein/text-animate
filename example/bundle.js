@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 'use strict'
 
 const scaleAlpha = require('./scale-alpha')
@@ -32,11 +32,11 @@ module.exports = function animateHeader(el, opts={}) {
   return { step }
 }
 
-},{"./scale-alpha":17}],2:[function(require,module,exports){
+},{"./scale-alpha":18}],2:[function(require,module,exports){
 'use strict'
 
+const charming   = require('charming')
 const seedrandom = require('seedrandom')
-const spanify    = require('./spanify')
 
 
 // TODO: investigate varying the etchSpeed slightly each frame
@@ -51,7 +51,6 @@ module.exports = function animate1(el, opts={}) {
   const rng = seedrandom(options.randSeed)
 
   let etchWidth = (rng() > 0.5) ? 1 : 2
-
 
   const _etch = function(i) {
     if (i >= spans.length)
@@ -69,7 +68,8 @@ module.exports = function animate1(el, opts={}) {
   const _done = function(i) {
     if (i >= spans.length)
       return
-    spans[i].style.color = 'initial'
+
+    spans[i].style.color = '' //'initial'
     spans[i].style.backgroundColor = options.targetBGColor
   }
 
@@ -81,16 +81,13 @@ module.exports = function animate1(el, opts={}) {
 
 
   const _setup = function(text) {
-    el.innerHTML = text.trim()
-    spanify(el)
-
+    charming(el)
     index = 0
     spans = el.querySelectorAll('span')
 
     const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
-    for (let i=0; i < spans.length; i++) {
+    for (let i=0; i < spans.length; i++)
       spans[i].style.color = pageBgColor
-    }
   }
 
 
@@ -127,7 +124,7 @@ module.exports = function animate1(el, opts={}) {
   return { setText, step }
 }
 
-},{"./spanify":18,"seedrandom":9}],3:[function(require,module,exports){
+},{"charming":6,"seedrandom":10}],3:[function(require,module,exports){
 'use strict'
 
 const raf = require('raf')
@@ -145,10 +142,9 @@ module.exports = function animationController() {
 
 
   const remove = function(item) {
-    for(let i=0; i < items.length; i++) {
+    for(let i=0; i < items.length; i++)
       if (items[i] === item)
         return items.splice(i, 1)
-    }
   }
 
 
@@ -171,7 +167,7 @@ module.exports = function animationController() {
   return { add, remove, start }
 }
 
-},{"raf":8}],4:[function(require,module,exports){
+},{"raf":9}],4:[function(require,module,exports){
 'use strict'
 
 const animateHeader = require('../animate-header')
@@ -209,15 +205,67 @@ const p3 = {
 }
 
 const lis = document.querySelectorAll('li,p')
-for(let i=0; i < lis.length; i++) {
+for(let i=0; i < lis.length; i++)
   anim.add(animateText(lis[i], p3))
-}
 
 anim.start()
 
 },{"../animate-header":1,"../animate-text":2,"../controller":3}],5:[function(require,module,exports){
 
 },{}],6:[function(require,module,exports){
+module.exports = function (element, options) {
+  options = options || {}
+  element.normalize()
+  var splitRegex = options.splitRegex
+
+  var tagName = options.tagName || 'span'
+  var classPrefix = options.classPrefix != null ? options.classPrefix : 'char'
+  var count = 1
+
+  function inject (element) {
+    var parentNode = element.parentNode
+    var string = element.nodeValue
+    var split = splitRegex ? string.split(splitRegex) : string
+    var length = split.length
+    var i = -1
+    while (++i < length) {
+      var node = document.createElement(tagName)
+      if (classPrefix) {
+        node.className = classPrefix + count
+        count++
+      }
+      node.appendChild(document.createTextNode(split[i]))
+      node.setAttribute('aria-hidden', 'true')
+      parentNode.insertBefore(node, element)
+    }
+    if (string.trim() !== '') {
+      parentNode.setAttribute('aria-label', string)
+    }
+    parentNode.removeChild(element)
+  }
+
+  ;(function traverse (element) {
+    // `element` is itself a text node.
+    if (element.nodeType === 3) {
+      return inject(element)
+    }
+
+    // `element` has a single child text node.
+    var childNodes = Array.prototype.slice.call(element.childNodes) // static array of nodes
+    var length = childNodes.length
+    if (length === 1 && childNodes[0].nodeType === 3) {
+      return inject(childNodes[0])
+    }
+
+    // `element` has more than one child node.
+    var i = -1
+    while (++i < length) {
+      traverse(childNodes[i])
+    }
+  })(element)
+}
+
+},{}],7:[function(require,module,exports){
 (function (process){
 // Generated by CoffeeScript 1.12.2
 (function() {
@@ -257,7 +305,7 @@ anim.start()
 
 
 }).call(this,require('_process'))
-},{"_process":7}],7:[function(require,module,exports){
+},{"_process":8}],8:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -443,7 +491,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 (function (global){
 var now = require('performance-now')
   , root = typeof window === 'undefined' ? global : window
@@ -522,7 +570,7 @@ module.exports.polyfill = function(object) {
 }
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"performance-now":6}],9:[function(require,module,exports){
+},{"performance-now":7}],10:[function(require,module,exports){
 // A library of seedable RNGs implemented in Javascript.
 //
 // Usage:
@@ -584,7 +632,7 @@ sr.tychei = tychei;
 
 module.exports = sr;
 
-},{"./lib/alea":10,"./lib/tychei":11,"./lib/xor128":12,"./lib/xor4096":13,"./lib/xorshift7":14,"./lib/xorwow":15,"./seedrandom":16}],10:[function(require,module,exports){
+},{"./lib/alea":11,"./lib/tychei":12,"./lib/xor128":13,"./lib/xor4096":14,"./lib/xorshift7":15,"./lib/xorwow":16,"./seedrandom":17}],11:[function(require,module,exports){
 // A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
 // http://baagoe.com/en/RandomMusings/javascript/
 // https://github.com/nquinlan/better-random-numbers-for-javascript-mirror
@@ -700,7 +748,7 @@ if (module && module.exports) {
 
 
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 // A Javascript implementaion of the "Tyche-i" prng algorithm by
 // Samuel Neves and Filipe Araujo.
 // See https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
@@ -805,7 +853,7 @@ if (module && module.exports) {
 
 
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 // A Javascript implementaion of the "xor128" prng algorithm by
 // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -888,7 +936,7 @@ if (module && module.exports) {
 
 
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 // A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
 //
 // This fast non-cryptographic random number generator is designed for
@@ -1036,7 +1084,7 @@ if (module && module.exports) {
   (typeof define) == 'function' && define   // present with an AMD loader
 );
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 // A Javascript implementaion of the "xorshift7" algorithm by
 // François Panneton and Pierre L'ecuyer:
 // "On the Xorgshift Random Number Generators"
@@ -1135,7 +1183,7 @@ if (module && module.exports) {
 );
 
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 // A Javascript implementaion of the "xorwow" prng algorithm by
 // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
 
@@ -1223,7 +1271,7 @@ if (module && module.exports) {
 
 
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /*
 Copyright 2014 David Bau.
 
@@ -1472,25 +1520,11 @@ if ((typeof module) == 'object' && module.exports) {
   Math    // math: package containing random, pow, and seedrandom
 );
 
-},{"crypto":5}],17:[function(require,module,exports){
+},{"crypto":5}],18:[function(require,module,exports){
 'use strict'
 
 module.exports = function scaleAlpha(color, amount) {
   return 'rgba(' + color.join(',') + ',' + amount + ')'
-}
-
-},{}],18:[function(require,module,exports){
-'use strict'
-
-module.exports = function spanify(el) {
-  const content = el.innerText
-  let newContent = ''
-
-  for(let i=0; i < content.length; i++) {
-    newContent += ('<span>' + content[i] + '</span>')
-  }
-
-  el.innerHTML = newContent
 }
 
 },{}]},{},[4]);

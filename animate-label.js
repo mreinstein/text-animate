@@ -1,10 +1,10 @@
 'use strict'
 
+const charming   = require('charming')
 const clamp      = require('clamp')
 const scaleAlpha = require('./scale-alpha')
 const seedrandom = require('seedrandom')
 const sineOut    = require('eases').sineOut
-const spanify    = require('./spanify')
 
 
 function randomFloat(rng, min, max) {
@@ -92,7 +92,9 @@ module.exports = function animateLabel(el, opts={}) {
 
     // add 1 space on each side of the label
     el.innerHTML = '&nbsp;' + text.trim() + '&nbsp;'
-    spanify(el)
+
+    charming(el)
+
     spans = el.querySelectorAll('span')
     for (let i=0; i < spans.length; i++) {
       spans[i].style.backgroundColor = pageBgColor

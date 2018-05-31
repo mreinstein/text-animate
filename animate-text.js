@@ -1,7 +1,7 @@
 'use strict'
 
+const charming   = require('charming')
 const seedrandom = require('seedrandom')
-const spanify    = require('./spanify')
 
 
 // TODO: investigate varying the etchSpeed slightly each frame
@@ -16,7 +16,6 @@ module.exports = function animate1(el, opts={}) {
   const rng = seedrandom(options.randSeed)
 
   let etchWidth = (rng() > 0.5) ? 1 : 2
-
 
   const _etch = function(i) {
     if (i >= spans.length)
@@ -34,7 +33,8 @@ module.exports = function animate1(el, opts={}) {
   const _done = function(i) {
     if (i >= spans.length)
       return
-    spans[i].style.color = 'initial'
+
+    spans[i].style.color = '' //'initial'
     spans[i].style.backgroundColor = options.targetBGColor
   }
 
@@ -46,16 +46,13 @@ module.exports = function animate1(el, opts={}) {
 
 
   const _setup = function(text) {
-    el.innerHTML = text.trim()
-    spanify(el)
-
+    charming(el)
     index = 0
     spans = el.querySelectorAll('span')
 
     const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
-    for (let i=0; i < spans.length; i++) {
+    for (let i=0; i < spans.length; i++)
       spans[i].style.color = pageBgColor
-    }
   }
 
 

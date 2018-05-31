@@ -15,10 +15,9 @@ module.exports = function animationController() {
 
 
   const remove = function(item) {
-    for(let i=0; i < items.length; i++) {
+    for(let i=0; i < items.length; i++)
       if (items[i] === item)
         return items.splice(i, 1)
-    }
   }
 
 

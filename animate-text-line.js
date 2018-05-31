@@ -8,9 +8,9 @@ function spanifyByNewlines(el) {
 
   for(let i=0; i < lines.length; i++) {
     // don't include spans that have a new line
-    if (lines[i].trim().length === 0) {
+    if (lines[i].trim().length === 0)
       continue
-    }
+
     newContent += ('<span>' + lines[i] + '</span><br>')
   }
   el.innerHTML = newContent
