@@ -1,8 +1,8 @@
-import charming from 'charming'
-import clamp    from 'clamp'
+import charming   from 'charming'
+import clamp      from 'clamp'
 import scaleAlpha from './scale-alpha.js'
 import seedrandom from 'seedrandom'
-import { sineOut } from 'eases'
+import sineOut    from 'eases/sine-out'
 
 
 function randomFloat (rng, min, max) {
