@@ -1,6 +1,3 @@
-import raf from 'raf'
-
-
 export default function animationController () {
   const items = []
 
@@ -20,7 +17,7 @@ export default function animationController () {
 
 
   const start = function () {
-    raf(_step)
+    requestAnimationFrame(_step)
   }
 
 
@@ -31,7 +28,7 @@ export default function animationController () {
     for (let i=0; i < items.length; i++)
       items[i].step(dt)
 
-    raf(_step)
+    requestAnimationFrame(_step)
   }
 
 

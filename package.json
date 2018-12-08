@@ -33,7 +33,6 @@
     "charming": "^2.2.3",
     "clamp": "^1.0.1",
     "eases": "^1.0.8",
-    "raf": "^3.3.0",
     "seedrandom": "^2.4.3"
   },
   "devDependencies": {
