@@ -1,6 +1,6 @@
 {
   "name": "text-animate",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "beautiful, animated, HTML typographic UI effects",
   "main": "dist/text-animate.cjs.js",
   "module": "dist/text-animate.esm.js",
