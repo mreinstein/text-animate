@@ -10,8 +10,7 @@ beautiful, animated, HTML typographic UI effects
 You can use commonjs (require) or es modules (import)
 
 ```javascript
-import animateHeader from 'text-animate/animate-header.js'
-import controller    from 'text-animate/controller.js'
+import { header, controller } from 'text-animate'
 
 
 const anim = controller()
@@ -22,7 +21,7 @@ const p5 = {
   duration: 300,
   delay: 0      // milliseconds to wait before animation starts
 }
-const h = animateHeader(document.querySelector('span'), p5)
+const h = header(document.querySelector('span'), p5)
 anim.add(h)
 
 anim.start()
