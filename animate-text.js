@@ -1,11 +1,9 @@
-'use strict'
-
-const charming   = require('charming')
-const seedrandom = require('seedrandom')
+import charming   from 'charming'
+import seedrandom from 'seedrandom'
 
 
 // TODO: investigate varying the etchSpeed slightly each frame
-module.exports = function animate1(el, opts={}) {
+export default function animate1 (el, opts={}) {
   const options = JSON.parse(JSON.stringify(opts))
 
   let spans
@@ -17,7 +15,7 @@ module.exports = function animate1(el, opts={}) {
 
   let etchWidth = (rng() > 0.5) ? 1 : 2
 
-  const _etch = function(i) {
+  const _etch = function (i) {
     if (i >= spans.length)
       return
 
@@ -30,7 +28,7 @@ module.exports = function animate1(el, opts={}) {
   }
 
 
-  const _done = function(i) {
+  const _done = function (i) {
     if (i >= spans.length)
       return
 
@@ -39,13 +37,13 @@ module.exports = function animate1(el, opts={}) {
   }
 
 
-  const setText = function(text) {
+  const setText = function (text) {
     _setup(text)
     accum = delay
   }
 
 
-  const _setup = function(text) {
+  const _setup = function (text) {
     charming(el)
     index = 0
     spans = el.querySelectorAll('span')
@@ -57,7 +55,7 @@ module.exports = function animate1(el, opts={}) {
 
 
   // @param int dt time elapsed in milliseconds
-  const step = function(dt) {
+  const step = function (dt) {
     accum += dt
 
     if (accum < delay)
@@ -65,7 +63,7 @@ module.exports = function animate1(el, opts={}) {
 
     let actual = accum - delay
 
-    while(actual >= options.etchSpeed) {
+    while (actual >= options.etchSpeed) {
       _done(index)
       if (etchWidth > 1)
         _done(index + 1)

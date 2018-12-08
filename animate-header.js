@@ -1,9 +1,7 @@
-'use strict'
-
-const scaleAlpha = require('./scale-alpha')
+import scaleAlpha from './scale-alpha.js'
 
 
-module.exports = function animateHeader(el, opts={}) {
+export default function animateHeader (el, opts={}) {
   const options = JSON.parse(JSON.stringify(opts))
   el.innerHTML = '<span>' + el.innerText + '</span>'
   const span =  el.querySelector('span')
@@ -16,7 +14,7 @@ module.exports = function animateHeader(el, opts={}) {
 
 
   // @param int dt time elapsed in milliseconds
-  const step = function(dt) {
+  const step = function (dt) {
     accum += dt
     if (finished || accum < options.delay)
       return

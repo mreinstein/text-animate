@@ -1,17 +1,15 @@
-'use strict'
-
-const scaleAlpha = require('./scale-alpha')
-const seedrandom = require('seedrandom')
+import scaleAlpha from './scale-alpha.js'
+import seedrandom from 'seedrandom'
 
 
-module.exports = function animateWords(el, opts={}) {
+export default function animateWords (el, opts={}) {
   const options = JSON.parse(JSON.stringify(opts))
 
   const spans = []
   let accum = 0  // ms in the accumulator
 
 
-  const appendText = function(text) {
+  const appendText = function (text) {
     const words = text.trim().split(' ')
     const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
 
@@ -25,16 +23,16 @@ module.exports = function animateWords(el, opts={}) {
 
 
   // @param int dt time elapsed in milliseconds
-  const step = function(dt) {
+  const step = function (dt) {
     accum += dt
 
     const amount = 1 - (accum / options.duration)
-    for(let i=0; i < spans.length; i++)
+    for (let i=0; i < spans.length; i++)
       spans[i].style.backgroundColor = scaleAlpha(options.color, amount)
   }
 
 
-  const _setup = function() {
+  const _setup = function () {
     const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
     accum = 0
     el.innerHTML = ''

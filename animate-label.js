@@ -1,13 +1,11 @@
-'use strict'
-
-const charming   = require('charming')
-const clamp      = require('clamp')
-const scaleAlpha = require('./scale-alpha')
-const seedrandom = require('seedrandom')
-const sineOut    = require('eases').sineOut
+import charming from 'charming'
+import clamp    from 'clamp'
+import scaleAlpha from './scale-alpha.js'
+import seedrandom from 'seedrandom'
+import { sineOut } from 'eases'
 
 
-function randomFloat(rng, min, max) {
+function randomFloat (rng, min, max) {
   return parseFloat( min + rng() * (max - min) )
 }
 
@@ -16,7 +14,7 @@ function sineTrough (amount) {
 }
 
 
-module.exports = function animateLabel(el, opts={}) {
+export default function animateLabel (el, opts={}) {
   const options = JSON.parse(JSON.stringify(opts))
   let spans, characterEffects
   let effect2Duration = 90
@@ -31,7 +29,7 @@ module.exports = function animateLabel(el, opts={}) {
 
 
   // @param int dt time elapsed in milliseconds
-  const step = function(dt) {
+  const step = function (dt) {
     let finished = (accum >= options.delay + effect1Duration + effect2Duration)
 
     accum += dt
@@ -77,7 +75,7 @@ module.exports = function animateLabel(el, opts={}) {
   }
 
 
-  const setText = function(text, color) {
+  const setText = function (text, color) {
     _setup(text)
 
     if (color)
@@ -87,7 +85,7 @@ module.exports = function animateLabel(el, opts={}) {
   }
 
 
-  const _setup = function(text) {
+  const _setup = function (text) {
     const pageBgColor = window.getComputedStyle(document.body, null).getPropertyValue('background-color')
 
     // add 1 space on each side of the label

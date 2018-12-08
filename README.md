@@ -7,11 +7,12 @@ beautiful, animated, HTML typographic UI effects
 
 ## simple example
 
-```javascript
-'use strict'
+You can use commonjs (require) or es modules (import)
 
-const animateHeader = require('text-animate/animate-header')
-const controller    = require('text-animate/controller')
+```javascript
+import animateHeader from 'text-animate/animate-header.js'
+import controller    from 'text-animate/controller.js'
+
 
 const anim = controller()
 const randSeed = Math.random()

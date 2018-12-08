@@ -1,8 +1,6 @@
-'use strict'
-
-const animateHeader = require('../animate-header')
-const animateText   = require('../animate-text')
-const controller    = require('../controller')
+import animateHeader from '../animate-header.js'
+import animateText   from '../animate-text.js'
+import controller    from '../controller'
 
 
 const anim = controller()
@@ -19,7 +17,7 @@ const p5 = {
 
 const headers = document.querySelectorAll('h1,h2')
 
-for(let i=0; i < headers.length; i++) {
+for (let i=0; i < headers.length; i++) {
   p5.delay = 120 + Math.floor(50 * Math.random())
   p5.duration = 250 + Math.floor(100 * Math.random())
   anim.add(animateHeader(headers[i], p5))
@@ -35,7 +33,7 @@ const p3 = {
 }
 
 const lis = document.querySelectorAll('li,p')
-for(let i=0; i < lis.length; i++)
+for (let i=0; i < lis.length; i++)
   anim.add(animateText(lis[i], p3))
 
 anim.start()

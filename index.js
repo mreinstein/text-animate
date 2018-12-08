@@ -1,11 +1,12 @@
-'use strict'
+import controller from './controller.js'
+import header     from './animate-header.js'
+import label      from './animate-label.js'
+import text       from './animate-text.js'
+import textLine   from './animate-text-line.js'
+import timed      from './animate-text-timed-words.js'
+import words      from './animate-words'
 
-module.exports = {
-  controller: require('./controller'),
-  header: require('./animate-header'),
-  label: require('./animate-label'),
-  text: require('./animate-text'),
-  textLine: require('./animate-text-line'),
-  timed: require('./animate-text-timed-words'),
-  words: require('./animate-words')
+
+export default {
+  controller, header, label, text, textLine, timed, words
 }

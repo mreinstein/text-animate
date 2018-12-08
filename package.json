@@ -2,10 +2,14 @@
   "name": "text-animate",
   "version": "0.7.0",
   "description": "beautiful, animated, HTML typographic UI effects",
-  "main": "index.js",
+  "main": "dist/text-animate.cjs.js",
+  "module": "dist/text-animate.esm.js",
   "scripts": {
-    "build": "browserify example/index.js | uglifyjs --compress --mangle > example/bundle.js",
-    "watch": "watchify example/index.js -v -o example/bundle.js --verbose"
+    "build": "npm-run-all -p build:*",
+    "build:example": "rollup example/index.js -c example/rollup.config.js --file example/bundle.js --format iife --name example",
+    "build:cjs": "rollup index.js -c rollup.config.js --file dist/text-animate.cjs.js --format cjs",
+    "build:esm": "rollup index.js -c rollup.config.js --file dist/text-animate.esm.js --format esm",
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -33,7 +37,10 @@
     "seedrandom": "^2.4.3"
   },
   "devDependencies": {
-    "uglify-es": "^3.0.21",
-    "watchify": "^3.9.0"
+    "npm-run-all": "^4.1.5",
+    "rollup": "^0.67.4",
+    "rollup-plugin-commonjs": "^9.2.0",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-terser": "^3.0.0"
   }
 }
