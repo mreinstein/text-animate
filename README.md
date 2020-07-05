@@ -2,7 +2,7 @@
 
 beautiful, animated, HTML typographic UI effects
 
-![alt text](example2.gif "example of usage from my personal website https://reinstein.me")
+![alt text](example.gif "example of usage from my personal website https://reinstein.me")
 
 
 ## simple example
