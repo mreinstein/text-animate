@@ -2,7 +2,7 @@
 
 beautiful, animated, HTML typographic UI effects
 
-![alt text](example.webp "example of usage from my personal website https://reinstein.me" | width=600)
+![alt text](example.webp "example of usage from my personal website https://reinstein.me")
 
 
 ## simple example
