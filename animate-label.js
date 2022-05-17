@@ -20,7 +20,8 @@ export default function animateLabel (el, opts={}) {
   let effect2Duration = 90
   let accum = 0  // ms in the accumulator
 
-  const rng = new Alea(options.randSeed)
+  const defaultSeed = options.randSeed || Math.random()
+  const rng = new Alea(defaultSeed)
 
   // initial label glitch
   const effect1Duration = 130
