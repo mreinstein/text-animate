@@ -3,7 +3,7 @@ import resolve  from 'rollup-plugin-node-resolve'
 
 
 export default {
-  external: [ 'charming', 'clamp', 'eases', 'seedrandom' ],
+  external: [ 'alea', 'charming', 'clamp', 'eases' ],
   plugins: [
     resolve(),
     commonjs()

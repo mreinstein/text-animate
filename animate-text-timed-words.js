@@ -3,7 +3,7 @@ import scaleAlpha from './scale-alpha.js'
 
 
 function splitByTimings (text, timings) {
-  const words = []
+  const words = [ ]
 
   let lastStart = 0
 

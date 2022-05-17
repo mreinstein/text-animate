@@ -1,7 +1,7 @@
+import Alea       from 'alea'
 import charming   from 'charming'
 import clamp      from 'clamp'
 import scaleAlpha from './scale-alpha.js'
-import seedrandom from 'seedrandom'
 import sineOut    from 'eases/sine-out'
 
 
@@ -20,7 +20,7 @@ export default function animateLabel (el, opts={}) {
   let effect2Duration = 90
   let accum = 0  // ms in the accumulator
 
-  const rng = seedrandom(options.randSeed)
+  const rng = new Alea(options.randSeed)
 
   // initial label glitch
   const effect1Duration = 130

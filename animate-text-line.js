@@ -14,6 +14,7 @@ function spanifyByNewlines (el) {
   el.innerHTML = newContent
 }
 
+
 // given an inline element, split by newlines and render each line at once
 export default function animateTextLines (el, opts={}) {
   const options = JSON.parse(JSON.stringify(opts))

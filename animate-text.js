@@ -1,5 +1,5 @@
-import charming   from 'charming'
-import seedrandom from 'seedrandom'
+import Alea     from 'alea'
+import charming from 'charming'
 
 
 // TODO: investigate varying the etchSpeed slightly each frame
@@ -11,7 +11,8 @@ export default function animate1 (el, opts={}) {
   let accum = 0  // ms in the accumulator
   const delay = (options.delay ? options.delay : 0)
 
-  const rng = seedrandom(options.randSeed)
+  const defaultSeed = options.randSeed || Math.random()
+  const rng = new Alea(defaultSeed)
 
   let etchWidth = (rng() > 0.5) ? 1 : 2
 

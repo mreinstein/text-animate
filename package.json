@@ -15,6 +15,10 @@
     "type": "git",
     "url": "git+https://github.com/mreinstein/text-animate.git"
   },
+  "files": [
+    "dist/text-animate.cjs.js",
+    "dist/text-animate.esm.js"
+  ],
   "keywords": [
     "text",
     "effects",
@@ -30,10 +34,10 @@
   },
   "homepage": "https://github.com/mreinstein/text-animate#readme",
   "dependencies": {
+    "alea": "^1.0.1",
     "charming": "^2.2.3",
     "clamp": "^1.0.1",
-    "eases": "^1.0.8",
-    "seedrandom": "^2.4.3"
+    "eases": "^1.0.8"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5",

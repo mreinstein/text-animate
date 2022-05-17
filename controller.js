@@ -1,5 +1,5 @@
 export default function animationController () {
-  const items = []
+  const items = [ ]
 
   let lastTime = Date.now()
 

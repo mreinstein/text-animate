@@ -4,7 +4,6 @@ import controller    from '../controller'
 
 
 const anim = controller()
-const randSeed = Math.random()
 
 const seed = Math.random() // enables consistent randomness for this session
 

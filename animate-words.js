@@ -1,5 +1,4 @@
 import scaleAlpha from './scale-alpha.js'
-import seedrandom from 'seedrandom'
 
 
 export default function animateWords (el, opts={}) {
