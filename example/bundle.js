@@ -207,7 +207,6 @@
     const delay = (options.delay ? options.delay : 0);
 
     const defaultSeed = options.randSeed || Math.random();
-    console.log('ds:', defaultSeed);
     const rng = new alea(defaultSeed);
 
     let etchWidth = (rng() > 0.5) ? 1 : 2;
