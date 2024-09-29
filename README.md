@@ -5,9 +5,7 @@ beautiful, animated, HTML typographic UI effects
 ![alt text](example.webp "example of usage from my personal website https://reinstein.me")
 
 
-## simple example
-
-You can use commonjs (require) or es modules (import)
+## example
 
 ```javascript
 import { header, controller } from 'text-animate'

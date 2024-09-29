@@ -2,7 +2,6 @@ import Alea     from 'alea'
 import charming from 'charming'
 
 
-// TODO: investigate varying the etchSpeed slightly each frame
 export default function animate1 (el, opts={}) {
   const options = JSON.parse(JSON.stringify(opts))
 
