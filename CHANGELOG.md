@@ -3,3 +3,4 @@
 * remove commonjs
 * add a changelog
 * move the code into src/
+* update deps

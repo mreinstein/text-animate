@@ -1,6 +1,6 @@
 {
   "name": "text-animate",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "beautiful, animated, HTML typographic UI effects",
   "main": "index.js",
   "type": "module",
